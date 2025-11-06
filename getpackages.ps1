@@ -75,7 +75,7 @@ foreach ($path in $registryPaths) {
     Where-Object{$uninstallList -contains $_.DisplayName -or ($_.Publisher -match 'Dell') -or ($_.DisplayName -match 'Dell')}|
     Select-Object DisplayName, Publisher, DisplayVersion, UninstallString | Format-List
     ForEach-Object {
-        Write-Host"windows registry dellware:"
+        
         Write-Host "$($_.DisplayName) [$($_.DisplayVersion)] [$($_.UninstallString)]"
     }
 }

@@ -1,3 +1,10 @@
+<#
+.NOTES 
+Github : https://github.com/pdotexe
+Version: 1
+#>
+
+
 .SYNOPSIS 
 
 <# A PowerShell script to remove unwanted Dell bloatware from Windows systems.
@@ -15,7 +22,8 @@ includes common applications pre-installed in Dell computers which use up extens
 
 
 
-Import-Module delldebloatgui
+Import-Module telemetry
+Import-Module getpackages
 
 
 
@@ -27,7 +35,9 @@ Write-Host"[2] Use GUI"
 Write-Host "-----------------------------------"
 Write-Host "[3] Exit"
 
-Write-Host "For manual: '/delldebloat.ps1 -Manual'"
+Write-Host "For manual: '/delldebloat.ps1 -Manual'" -ForegroundColor Green
+Write-Host "To see which applications will uninstall, run: 'cat apps.txt'" -ForegroundColor Blue
+Write-Host "To manually choose removal, use UI " -ForegroundColor Orange
 
 
 $choice = Read-Host "Please enter your choice (1-3)"
@@ -61,18 +71,25 @@ function Manual{
 
 
 
-function Get-CommonDellPackages param(
+function RemovePackages param(
     [switch]$RemoveDellWare
     [switch]$RemoveTelemetry
     [switch]$BasicRemoval
 ) {
 
-$dellList = @{
-
-
-
-
-
-
 }
-}
+
+
+
+
+
+
+
+
+
+
+
+# get dell packages
+# get other packages
+# get telemetry details
+# call seperate script for the "basic removal"
