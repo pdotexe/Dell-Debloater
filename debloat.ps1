@@ -61,7 +61,13 @@ if ($choice -eq 3){
 function Manual{
     Clear-Host
     Write-Host @"
-    
+     Usage:
+
+    Invoke script: .\debloat.ps1
+
+    Flags: <-RemoveDellWare>, <-RemoveTelemetry>, <-BasicRemoval>
+
+    to see which processes are being removed, 'cat applications.txt
 
 "@
 }
