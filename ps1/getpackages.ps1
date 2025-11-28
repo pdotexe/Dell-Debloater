@@ -1,7 +1,7 @@
     
-    
-    .SYNOPSIS
     <#
+    .SYNOPSIS
+    
     This file is solely for getting package names of embedded software within the operating system. Feel free to alter it.
     #>
     
@@ -130,45 +130,10 @@
 
 
 
-Write-Host "DELL RELATED SCHEDULED TASKS" -ForeGroundColor Cyan
-Get-ScheduledTask |
-Where-Object {
-    $_.TaskName -match "Dell|Support|SA|" -or $_.TaskName -match "Dell|Support"
-    
-}|
-ForEach-Object{
-    Write-Host "[$($_.TaskPath) ] [$($_.TaskName)]"
-}
 
 
 
-$startupEntries = @(
-"HKLM:\Software\Microsoft\Windows\CurrentVersion\Run",
-"HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
-)
-
-
-Write-Host " DELL DRIVER FOLDERS" -ForeGroundColor Cyan
-    $driverRepository = "C:\Windows\System32\DriverStore\FileRepository\"
-
-
-    Get-ChildItem -Path $driverRepository -Directory | Where-Object {
-        $_.Name -match "dell|waves|sa|maxx|supportassist"
-    } |
-    ForEach-Object{
-        Write-Host "Driver Folder$($_.FullName)"
-    }
 
 
 
-Write-Host "STARTUP REGISTRY ENTRIES:" -ForeGroundColor Cyan
-foreach($key in $startupEntries){
-    if (Test-Path $key){
-        $props = Get-ItemProperty -Path $key
-        foreach ($p in $props.PSObject.Properties){
-            if($p.Value -match "Dell|Waves|Support|SA|Maxx"){
-                Write-Host "[$($p.Name)] -> [$($p.Value)]"
-            }
-        }
-    }
-}
+
