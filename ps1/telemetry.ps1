@@ -1,7 +1,8 @@
+<#
 .SYNOPSIS 
-@"
-telemetry removal
-"@
+
+Removal of telemetry through various locations in the OS including diagtrack, scheduled tasks, disabled registry paths, and more
+#>
 
 
 
@@ -23,11 +24,12 @@ Set-Service DiagTrack -StartupType Disabled
 # dmwappushservice
 Stop-Service dmwappushservice -Force
 Set-Service dmwappushservice -StartupType Disabled
+#ConnectedUserExperiences
 Stop-Service ConnectedUserExperiences -Force
 Set-Service ConnectedUserExperiences -StartupType Disabled
 
-Clear-Content "C:\ProgramData\Microsoft\Diagnosis" -Recurse -Force -ErrorAction SilentlyContinue
-Clear-Content "C:\ProgramData\Microsoft\Windows\WER" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "C:\ProgramData\Microsoft\Diagnosis" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "C:\ProgramData\Microsoft\Windows\WER" -Recurse -Force -ErrorAction SilentlyContinue
 
 # Change telemetry schedule (compatibility)
 schtasks /Change /TN "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /Disable
