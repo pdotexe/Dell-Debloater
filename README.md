@@ -45,8 +45,13 @@ run.bat
 # -------------------------------------------------------
 [1] Dell Debloat
 * This option quickly applies changes automatically for you. You may review what is being removed, but there is no rollback for this action
+
+
 [2] Win11-Debloat
 * This option makes a web request to https://github.com/Raphire/Win11Debloat. This is an open-source script made for similar purposes, combining functionality
+
+
 [3] Remove Telemetry
 * Windows collects data on users silently in the background (scheduled tasks, registry keys, etc.). These also consumes resources, and may pose as a security risk
+
 
