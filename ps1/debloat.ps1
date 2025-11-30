@@ -24,25 +24,7 @@ includes common applications pre-installed in Dell computers which use up extens
 
 . "$PSScriptRoot\telemetry.ps1"
 
-function Help{
-    Clear-Host
-    Write-Host @"
 
-There are three options to choose from. 
-
-If choose Dell Debloat, you may customize the packages or installations that will you wish to remove. Not everything is included for safety reasons. 
-
-There is also a telemetry disabler, and a link to a seperate open-source script to combine power.
-
-If choosing to debloat, be sure to view and add "#" in front of any path or package which you wish to keep.
-
-Manual:
-Simply choose options 1-4 according to your needs. There is no need to enter any flags, as that is taken care of for you.
-
-
-
-"@
-}
 
 function ScheduledTasks() {
     schtasks /Change /TN "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /Disable
@@ -80,9 +62,8 @@ function Remove-Packages() {
     )
     
     if($RemoveDellware){
-        Write-Host "Preview: The following packages will be removed:" -ForegroundColor Yellow
         Stop-Waves
-        $msApps = @(
+            $msApps = @(
             "Clipchamp.Clipchamp_*_x64__yxz26nhyzhsrt",
             "Microsoft.PowerAutomateDesktop_*_x64__8wekyb3d8bbwe",
             "Microsoft.Windows.DevHome_*_x64__8wekyb3d8bbwe",
@@ -121,24 +102,48 @@ function Remove-Packages() {
             "Microsoft.People_*_x64__8wekyb3d8bbwe"
         )
         
+        # Get all packages once for performance
+        $allPackages = @(Get-AppxPackage -AllUsers -ErrorAction SilentlyContinue)
+        $allProvisionedPackages = @(Get-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue)
+        
         foreach ( $app in $msApps){
-            Write-Host "Removing $app..."
+            $found = $false
             if ($app -like "*_*_*" -or $app -like "*_*" -or $app -like "*" -or $app -like "_*"){
-                Get-AppxPackage -AllUsers | Where-Object { $_.Name -like $app}| ForEach-Object{
-                    Write-Host "Removing Package $($_.Name)"
-                    Remove-AppxPackage -Package $_.PackageFullName -ErrorAction SilentlyContinue
+                $packages = $allPackages | Where-Object { $_.Name -like $app}
+                if ($packages) {
+                    Write-Host "Removing $app..."
+                    $found = $true
+                    $packages | ForEach-Object{
+                        Write-Host "Removing Package $($_.Name)"
+                        Remove-AppxPackage -Package $_.PackageFullName -ErrorAction SilentlyContinue
+                    }
                 }
-                Get-AppxProvisionedPackage -Online | Where-Object { $_.DisplayName -like $app } | ForEach-Object {
-                    Write-Host "Removing Provisioned Package $($_.DisplayName)"
-                    Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction SilentlyContinue
+                $provisionedPackages = $allProvisionedPackages | Where-Object { $_.DisplayName -like $app }
+                if ($provisionedPackages) {
+                    if (-not $found) { Write-Host "Removing $app..." }
+                    $found = $true
+                    $provisionedPackages | ForEach-Object {
+                        Write-Host "Removing Provisioned Package $($_.DisplayName)"
+                        Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction SilentlyContinue
+                    }
                 }
             }
             else{
-                Get-AppxPackage -AllUsers -Name $app | ForEach-Object {
-                    Remove-AppxPackage -Package $_.PackageFullName -ErrorAction SilentlyContinue
+                $packages = $allPackages | Where-Object { $_.Name -eq $app }
+                if ($packages) {
+                    Write-Host "Removing $app..."
+                    $found = $true
+                    $packages | ForEach-Object {
+                        Remove-AppxPackage -Package $_.PackageFullName -ErrorAction SilentlyContinue
+                    }
                 }
-                Get-AppxProvisionedPackage -Online | Where-Object {$_.DisplayName -eq $app}| ForEach-Object {
-                    Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction SilentlyContinue
+                $provisionedPackages = $allProvisionedPackages | Where-Object {$_.DisplayName -eq $app}
+                if ($provisionedPackages) {
+                    if (-not $found) { Write-Host "Removing $app..." }
+                    $found = $true
+                    $provisionedPackages | ForEach-Object {
+                        Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction SilentlyContinue
+                    }
                 }
             }
         }
@@ -149,11 +154,32 @@ function Remove-Packages() {
             "MsiExec.exe /X{E630454C-DAC8-4BA5-9D65-65D09722CCF0} /quiet /norestart",
             '"C:\ProgramData\Package Cache\{d0ab664c-e704-4396-b9bc-ad1a7327731f}\DellUpdateSupportAssistPlugin.exe" /uninstall /quiet /norestart'
         )
-        foreach ($cmd in $dellRegistry){
-            Write-Host "Removing $cmd"
-            Start-Process cmd.exe -ArgumentList "/c $cmd" -Wait -NoNewWindow
+        
+        
+        $registryPaths = @(
+            "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{0307D6D7-56E0-408C-B8D9-D3C6AFEBDDB9}",
+            "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{6EBF5DC4-FA0B-4692-A954-E7470146943D}",
+            "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{E630454C-DAC8-4BA5-9D65-65D09722CCF0}"
+        )
+        
+        foreach ($path in $registryPaths) {
+            if (Test-Path $path) {
+                $guid = $path -replace '.*\\', ''
+                Write-Host "Removing MSI package: $guid"
+                Start-Process msiexec.exe -ArgumentList "/X$guid /quiet /norestart" -NoNewWindow
+            }
         }
         
+        # Check for DellUpdateSupportAssistPlugin
+        $pluginPath = "C:\ProgramData\Package Cache\{d0ab664c-e704-4396-b9bc-ad1a7327731f}\DellUpdateSupportAssistPlugin.exe"
+        if (Test-Path $pluginPath) {
+            Write-Host "Removing DellUpdateSupportAssistPlugin"
+            Start-Process cmd.exe -ArgumentList "/c `"$pluginPath`" /uninstall /quiet /norestart" -Wait -NoNewWindow
+        }
+        $additionalDellItems = @(
+            
+
+        )
         $memoryTargets= @(
             "C:\Program Files\Dell\TechHub\*",
             "C:\Program Files\Dell\SupportAssist*",
@@ -176,9 +202,12 @@ function Remove-Packages() {
             "SupportAssistAgent"
         )
         foreach($service in $serviceTargets){
-            Write-Host "Removing $service"
-            Stop-Service $service -ErrorAction SilentlyContinue -Force
-            Set-Service $service -StartupType Disabled -ErrorAction SilentlyContinue
+            $svc = Get-Service -Name $service -ErrorAction SilentlyContinue
+            if ($svc) {
+                Write-Host "Removing $service"
+                Stop-Service $service -ErrorAction SilentlyContinue -Force
+                Set-Service $service -StartupType Disabled -ErrorAction SilentlyContinue
+            }
         }
     }
     ElseIf($RemoveTelemetry){
@@ -234,36 +263,30 @@ Write-Host "[3] Remove Telemetry" -ForeGroundColor Blue
 Write-Host "-----------------------------------" -ForeGroundColor Black
 Write-Host "[4] Exit" -ForeGroundColor Yellow
 
-Write-Host " For information , run ./debloat.ps1 -Help"
-Write-Host "CHANGES CAN NOT BE REVERSED. REVIEW WHAT WILL BE REMOVED WITH <Get-Content removeditems.txt> -ForeGroundColor Red"
+
+Write-Host "CHANGES CAN NOT BE REVERSED. REVIEW WHAT WILL BE REMOVED WITH: Get-Item removeditems.txt" -ForegroundColor Cyan
 
 
-do {
-    $choice = Read-Host "Please enter your choice (1-4)"
-
-    switch ($choice) {
-        "1" {
-            Remove-Packages -RemoveDellware -ErrorAction SilentlyContinue
-            Write-Host "Dell debloat completed. Returning to menu..." -ForegroundColor Green
-        }
-        "2" {
-            Remove-Packages -BasicRemoval -ErrorAction SilentlyContinue
-            Write-Host "Win11 debloat completed. Returning to menu..." -ForegroundColor Green
-        }
-        "3" {
-            Remove-Packages -RemoveTelemetry -ErrorAction SilentlyContinue
-            Write-Host "Telemetry removal completed. Returning to menu..." -ForegroundColor Green
-        }
-        "4" {
-            Write-Host "Exiting..." -ForegroundColor Yellow
-            exit
-        }
-        Default {
-            Write-Host "Invalid choice. Please enter a valid option (1-4)." -ForeGroundColor Red
-        }
+while($true){
+    $choice = Read-Host "Enter your choice (1-4)"
+    
+    if ($choice -eq "1") {
+        Remove-Packages -RemoveDellware -ErrorAction SilentlyContinue
     }
-    Write-Host ""
-} while ($true)
+    elseif ($choice -eq "2") {
+        Remove-Packages -BasicRemoval -ErrorAction SilentlyContinue
+    }
+    elseif ($choice -eq "3") {
+        Remove-Packages -RemoveTelemetry -ErrorAction SilentlyContinue
+    }
+    elseif ($choice -eq "4") {
+        Write-Host "Exiting..." -ForegroundColor Yellow
+        exit
+    }
+    else{
+        Invoke-Expression $choice
+    }
+}
 
 
 
