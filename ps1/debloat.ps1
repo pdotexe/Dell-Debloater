@@ -176,10 +176,7 @@ function Remove-Packages() {
             Write-Host "Removing DellUpdateSupportAssistPlugin"
             Start-Process cmd.exe -ArgumentList "/c `"$pluginPath`" /uninstall /quiet /norestart" -Wait -NoNewWindow
         }
-        $additionalDellItems = @(
-            
 
-        )
         $memoryTargets= @(
             "C:\Program Files\Dell\TechHub\*",
             "C:\Program Files\Dell\SupportAssist*",
@@ -264,7 +261,7 @@ Write-Host "-----------------------------------" -ForeGroundColor Black
 Write-Host "[4] Exit" -ForeGroundColor Yellow
 
 
-Write-Host "CHANGES CAN NOT BE REVERSED. REVIEW WHAT WILL BE REMOVED WITH: Get-Item removeditems.txt" -ForegroundColor Cyan
+Write-Host "CHANGES CAN NOT BE REVERSED. REVIEW WHAT WILL BE REMOVED WITH: Get-Item removeditems.txt" 
 
 
 while($true){
