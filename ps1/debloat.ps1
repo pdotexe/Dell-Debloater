@@ -210,10 +210,11 @@ function Remove-Packages() {
     ElseIf($RemoveTelemetry){
         try{
             Telemetry-Data
+            ScheduledTasks
         }
         catch{}
         Remove-Item -Path "C:\ProgramData\Microsoft\Diagnosis" -Recurse -Force -ErrorAction SilentlyContinue
-        ScheduledTasks
+        
     }
     ElseIf($BasicRemoval){
         Write-Information "This function makes a web request. Make sure you are connected to the internet. Credit to this repository goes to https://github.com/Raphire/Win11Debloat"
