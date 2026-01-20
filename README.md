@@ -1,11 +1,11 @@
-# Dell-Debloater 💻
+# Dell-Debloater 
 
 
 
-<img width="1471" height="765" alt="Screenshot 2025-11-29 102309" src="https://github.com/user-attachments/assets/f9356c91-92f9-4bf4-b599-5f5acd917246" />
 
 
-A common issue with production ready Windows 11 is the amount of extra software consuming SSD storage, Memory, CPU, and power. Using this script also may reduce attack surface by mitigating privelage esclation attacks against insecure applications and registry permissions.
+
+Dell-Debloater 
 
 
 
@@ -53,6 +53,7 @@ run.bat
 
 [3] Remove Telemetry
 * Windows collects data on users silently in the background (scheduled tasks, registry keys, etc.). These also consumes resources, and may pose as a security risk
+
 
 
 
