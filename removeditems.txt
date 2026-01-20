@@ -1,134 +1,88 @@
-DELL DEBLOATER - ITEMS REMOVED
-================================================================================
-
-This file documents all applications, services, and telemetry components that 
-are removed by the Dell Debloater script. Items are organized by category for 
-easy reference.
-
-To exclude specific items from removal, edit ps1/debloat.ps1 and add a "#" 
-comment before the package or service name you wish to keep.
 
 
+APPLICATION PACKAGES REMOVED
+- Clipchamp.Clipchamp
+- Microsoft.PowerAutomateDesktop
+- Microsoft.Windows.DevHome
+- Microsoft.GetHelp
+- Microsoft.OutlookForWindows
+- Microsoft.M365Companions
+- Microsoft.ScreenSketch
+- Microsoft.People
+- Microsoft.WindowsCommunicationsApps
 
-MICROSOFT APPX PACKAGES REMOVED:
-- Clipchamp (Video Editor)
-- Microsoft Power Automate Desktop
-- Windows Dev Home
-- Microsoft Get Help
-- Microsoft Outlook for Windows
-- Microsoft 365 Companions
-- Screen Sketch
-- AIMGR
-- Microsoft Raw Image Extension
-- Microsoft HEIF Image Extension
-- Microsoft WebP Image Extension
-- Microsoft Web Media Extensions
-- Microsoft VP9 Video Extensions
-- Microsoft AV1 Video Extension
-- Microsoft MPEG2 Video Extension
-- Microsoft HEVC Video Extension
-- Microsoft AVC Encoder Video Extension
 
-DELL-SPECIFIC PACKAGES REMOVED:
+DELL APPLICATIONS REMOVED
 - Dell Power Manager
 - Dell SupportAssist for PCs
 - Dell Digital Delivery
 - Dell Customer Connect
 - Dell Mobile Connect
-- Alienware Command Center
-- Alienware Sound Center
-- Dell Cinema Color
-- Dell Display Manager
-- Dell Peripheral Manager
 - Dell Command Update
 - Dell Optimizer
+- Dell Display Manager
+- Dell Peripheral Manager
+- Alienware Command Center
+- Alienware Sound Center
+- Dell CinemaColor
 
-THIRD-PARTY PACKAGES REMOVED:
+INTEL UTILITIES REMOVED
 - Intel Arc Software
-- Intel Management and Security Status
+- Intel Management & Security Status
 - Thunderbolt Control Center
-- X-VPN (Free VPN)
-- WhatsApp Desktop
-- Windows Communications Apps
-- Microsoft People
 
-AUDIO/MEDIA SERVICES DISABLED:
-- Waves Audio Services (WavesSysSvc or WavesAudioEngineService)
-- Print Notifications Service (PrintNotify)
-- Maps Broker (MapsBroker)
-- Xbox Services:
-  * Xbox Authentication Manager (XblAuthManager)
-  * Xbox Game Save (XblGameSave)
-  * Xbox Network API Service (XboxNetApiSvc)
+MEDIA CODECS REMOVED ( may be dangerous )
+- HEVC Video Extensions
+- AV1 Video Extension
+- VP9 Video Extensions
+- MPEG-2 Video Extension
+- Web Media Extensions
+- WebP Image Extension
+- HEIF Image Extension
+- Raw Image Extension
 
-REGISTRY ENTRIES REMOVED (MSI Uninstalls):
-- Dell Update Support Assist Plugin
-- Various Dell utility packages via registry GUIDs
+SERVICES DISABLED
+- WavesSysSvc
+- WavesAudioEngineService
+- DellTechHub
+- DellClientManagementService
+- Dell Command Power Manager Service
+- SupportAssistAgent
+- PrintNotify
+- MapsBroker
+- XblAuthManager
+- XblGameSave
+- XboxNetApiSvc
+- DiagTrack
+- dmwappushservice
 
-DIRECTORIES AND FILES REMOVED:
-- C:\Program Files\Dell\TechHub\*
+DIRECTORIES REMOVED
+- C:\Program Files\Dell\TechHub\
 - C:\Program Files\Dell\SupportAssist*
 - C:\Program Files\Dell\Update*
 - C:\Program Files\Dell\DellDataVault*
-- C:\Program Files\OpenVPN\bin\openvpn-gui.exe
-- C:\Program Files\Common Files\Microsoft Shared\ClickToRun\AppVShNotify.exe
+- C:\ProgramData\Microsoft\Diagnosis\
+- C:\ProgramData\Microsoft\Windows\WER\
+- C:\Windows\AppCompat\Programs\
+- C:\Windows\System32\LogFiles\Sum\
 
-SERVICES DISABLED:
-- dcpm-notify (Dell Command Power Manager Notify)
-- Dell.CommandPowerManager.Service
-- DellClientManagementService
-- DellTechHub
-- SupportAssistAgent
+MSI PACKAGES REMOVED
+- {0307D6D7-56E0-408C-B8D9-D3C6AFEBDDB9}
+- {6EBF5DC4-FA0B-4692-A954-E7470146943D}
+- {E630454C-DAC8-4BA5-9D65-65D09722CCF0}
 
+TELEMETRY ACTIONS
+- Disabled CEIP scheduled tasks
+- Disabled telemetry-related scheduled tasks
+- Modified hosts file to block Microsoft telemetry endpoints
+- Disabled Connected User Experiences services
 
+==============================
+IMPORTANT NOTES (READ)
+==============================
+ Changes are NOT reversible automatically
+ Some media playback features may require reinstalling codecs from Microsoft Store
+ Windows Feature Updates may restore some components, especially telemetry
+ Script intended for advanced users only
+ NOT ALL TELEMETRY IS REMOVED, as this is impractical.
 
-This option downloads and runs the Win11-Debloat script from:
-https://github.com/Raphire/Win11Debloat
-
-This script removes additional Windows 11 bloatware and performs system 
-optimizations. Refer to that repository for details on what it removes.
-
-================================================================================
-OPTION 3: REMOVE TELEMETRY
-================================================================================
-
-TELEMETRY SERVICES DISABLED:
-- DiagTrack (Diagnostic Tracking Service)
-- dmwappushservice (Device Management Wireless Application Protocol)
-- ConnectedUserExperiences (Connected User Experiences and Telemetry)
-
-TELEMETRY DIRECTORIES REMOVED:
-- C:\ProgramData\Microsoft\Diagnosis (Diagnostic data)
-- C:\ProgramData\Microsoft\Windows\WER (Windows Error Reporting)
-
-SCHEDULED TASKS DISABLED:
-- Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser
-- Microsoft\Windows\Customer Experience Improvement Program\Consolidator
-- Microsoft\Windows\Customer Experience Improvement Program\UsbCeip
-- All tasks matching patterns: CEIP, Customer, Telemetry, Diag, Feedback
-
-REGISTRY CHANGES:
-- Set HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection\AllowTelemetry to 0
-
-
-
-1. These changes are PERMANENT and cannot be easily reversed without a clean
-   Windows installation or system restore point.
-
-2. Some Dell system management tools will be non-functional after removal.
-   This is intentional for business laptops that don't require them.
-
-3. Telemetry removal is not 100% complete - some telemetry is baked into 
-   the Windows kernel and cannot be disabled.
-
-4. This script is designed for Dell business laptops (XPS, Latitude, etc.) 
-   and may affect functionality on other systems.
-
-5. To restore any removed items, you can:
-   - Reinstall Windows
-   - Restore from a system backup
-   - Manually reinstall individual applications from Microsoft Store
-
-
-
-================================================================================

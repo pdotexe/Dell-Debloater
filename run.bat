@@ -4,7 +4,7 @@ net session >nul 2>&1
 if %errorLevel% == 0 (
     echo Running with administrator privileges
 ) else (
-    echo Not running as Administrator. Please run this file as admin.
+    echo Not running as Administrator. Please click 'Run as Adminstrator' on run.bat.
     pause
     exit /b
 )
