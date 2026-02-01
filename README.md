@@ -1,8 +1,9 @@
 # Dell-Debloater 
 
 
+<img width="1200" height="1200" alt="31d3eecdbc9c7a930ad857d8845b3393" src="https://github.com/user-attachments/assets/934ed12c-1f0e-410f-9f49-5c18eec5eb3b" />
 
-<img width="250" height="250" alt="dell-logo-png-115528518187jmytahoyx" src="https://github.com/user-attachments/assets/a8709705-83b4-4c84-806d-e8a884e4ede8" />
+
 
 
 
@@ -50,6 +51,7 @@ run.bat
 
 [3] Remove Telemetry
 * Windows collects data on users silently in the background (scheduled tasks, registry keys, etc.). These also consumes resources, and may pose as a security risk
+
 
 
 
