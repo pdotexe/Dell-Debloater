@@ -32,25 +32,37 @@ run.bat
 * Alternatively, you may download the .zip from this repository, and click on the batch file.
 
 
+# Removal Overview  🛠️ 
 
-
-
-
-
-
-
-
+* AppxPackages and AppxProvisionedPackages: Common preinstalled apps such as clipchamp, Outlook, and Screensketch, as well as Provisioned Packages to maintain a clean OS image for new users.
+* Preinstalled Dell Applications: Power Manager, SupportAssist, Mobile Connect, Etc.
+* Intel Management
+* Video, Image, and Media Codec softwares which aid in compression and playback quality.
+* Automated services such as XblGameSave, Wavessvc64, and other services which increase memory usage on svchost.exe
+* Dell-related directories
+* MSI Packages (Contain instructions in Registry for application installation and updates
+* Blocked TCP Connections to IP addresses of Telemetry outbound
+* Set the endpoint's associated IP in C:\windows\system32\drivers\etc\hosts to 0.0.0.0
+*  Disabled services such as DiagTrack, and Dmwappushservice ( may remove some functionalities )
+*  Completely removed directories made for logging data to be sent to Microsoft later
 
 
 
 
 # Options
 # -------------------------------------------------------
-[1] Dell Debloat
-* This option quickly applies changes automatically for you. You may review what is being removed, but there is no rollback for this action
+[1] Fast Debloat
+* This option quickly applies changes automatically for you. You may review what is being removed with the third option, but there is no rollback for this action unless manually reinstalled
 
-[3] Remove Telemetry
-* Windows collects data on users silently in the background (scheduled tasks, registry keys, etc.). These also consumes resources, and may pose as a security risk
+[2] Remove Telemetry
+* Windows collects data on users silently in the background (scheduled tasks, registry keys, etc.). These also consumes resources, and may pose privacy concern and a chance of privelage escalation (PrivEsc) attacks through insecure GUI apps or registry misconfigurations. Note that this does not fully remove Telemetry, as some is baked into the NT Kernel, which is not legal to modify.
+
+[3] Review Removed Items
+* This runs "Get-Content" on a text file containing information on what is being targeted.
+
+
+
+
 
 
 
