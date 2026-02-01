@@ -1,11 +1,12 @@
 # Dell-Debloater 
 
 
+<img width="840" height="859" alt="image" src="https://github.com/user-attachments/assets/23ed14d6-f0bf-4936-a60e-ea06fce14cae" />
 
 
 
 
-Dell-Debloater 
+Dell-Debloater is a easy to use debloat tool with a focus on Dell Computers running the Windows 11 Operating System (Home and Pro).
 
 
 
@@ -46,13 +47,9 @@ run.bat
 [1] Dell Debloat
 * This option quickly applies changes automatically for you. You may review what is being removed, but there is no rollback for this action
 
-
-[2] Win11-Debloat
-* This option makes a web request to https://github.com/Raphire/Win11Debloat. This is an open-source script made for similar purposes, combining functionality
-
-
 [3] Remove Telemetry
 * Windows collects data on users silently in the background (scheduled tasks, registry keys, etc.). These also consumes resources, and may pose as a security risk
+
 
 
 
