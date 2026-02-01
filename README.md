@@ -14,7 +14,7 @@ Dell-Debloater is a easy to use debloat tool with a focus on Dell Computers runn
 
 # Usage Options 🧠
 # ---------------------------------------------------------
-
+# REQUIRES ADMINISTATOR PRIVELAGE
 Clone the repository:
 ```
 git clone https://github.com/pdotexe/Dell-Debloater.git
@@ -29,7 +29,7 @@ run.bat
 ```
 
 
-* Alternatively, you may download the .zip from this repository, and click on the batch file.
+* Alternatively, you may download the .zip from this repository, and click on the batch file as administrator.
 
 
 # Removal Overview  🛠️ 
@@ -59,6 +59,7 @@ run.bat
 
 [3] Review Removed Items
 * This runs "Get-Content" on a text file containing information on what is being targeted.
+
 
 
 
