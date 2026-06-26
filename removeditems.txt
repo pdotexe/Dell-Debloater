@@ -1,0 +1,81 @@
+
+
+
+MICROSOFT STORE APPS
+- Clipchamp
+- PowerAutomateDesktop
+- DevHome
+- GetHelp
+- OutlookForWindows
+- M365Companions
+- DellPowerManager
+- SupportAssist
+- DellDigitalRecovery
+- DellCustomerConnect 
+- DellMobileConnect
+- Alienware
+- CinemaColor
+- DellDisplayManager
+- DellPeripheralManager
+- DellCommandUpdate
+- DellOptimizer
+- IntelArcSoftware
+- IntelManagementandSecurityStatus
+- ThunderboltControlCenter 
+- windowscommunicationsapps
+- people
+
+
+SERVICES:
+- Waves 
+- Xbox Live
+- Xbox
+
+
+PROGRAM FILES:
+- C:\Program Files\Dell\TechHub\
+- C:\Program Files\Dell\SupportAssist
+- C:\Program Files\Dell\Update
+- C:\Program Files\Dell\DellDataVault
+- C:\Program Files\Common Files\Microsoft Shared\ClickToRun\AppVShNotify.exe
+
+
+
+BACKGROUND SERVICE MONITORS:
+- dpcm-notify 
+- CommandPowerManager
+- DellClientManagementService
+- DellTechHub
+- SupportAssistAgent
+
+
+
+
+
+
+REGISTRY GHOST ENTRY CLEARANCE:
+- HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*,
+- HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*
+
+MSI PACKAGES REMOVED FROM REGISTRY ( breaks reinstallation loop)
+- {0307D6D7-56E0-408C-B8D9-D3C6AFEBDDB9} - Dell SupportAssist
+- {6EBF5DC4-FA0B-4692-A954-E7470146943D} - Dell SupportAssist OS Recovery Plugin for Dell Update
+- {E630454C-DAC8-4BA5-9D65-65D09722CCF0} - Dell/Alienware updates ecosystem
+
+TELEMETRY ACTIONS
+- Disabled CEIP scheduled tasks
+- Disabled telemetry-related scheduled tasks
+- Modified hosts file to block Microsoft telemetry endpoints
+- Disabled Connected User Experiences services
+- New Registry hive that sets scheduled telemetry tasks to false.
+
+
+
+
+==============================
+IMPORTANT NOTES (READ)
+==============================
+ Changes are NOT reversible automatically
+ Windows Feature Updates may restore some components, run every so often.
+ NOT ALL TELEMETRY IS REMOVED, as this is impractical and not possible with powershell tooling
+
