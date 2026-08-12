@@ -2,7 +2,7 @@
 
 
 
-<img width="960" height="960" alt="Dell_Logo svg" src="https://github.com/user-attachments/assets/382eaf4a-287f-4d65-8931-98ea07f6102c" />
+<img width="400" height="400" alt="Dell_Logo svg" src="https://github.com/user-attachments/assets/382eaf4a-287f-4d65-8931-98ea07f6102c" />
 
 ## ℹ️ Info 
 ## ---------------------------------------------------------
