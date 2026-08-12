@@ -2,7 +2,7 @@
 
 
 
-<img width="1471" height="765" alt="Screenshot 2025-11-29 102309" src="https://github.com/user-attachments/assets/f9356c91-92f9-4bf4-b599-5f5acd917246" />
+<img width="960" height="960" alt="Dell_Logo svg" src="https://github.com/user-attachments/assets/382eaf4a-287f-4d65-8931-98ea07f6102c" />
 
 ## ℹ️ Info 
 ## ---------------------------------------------------------
